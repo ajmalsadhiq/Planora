@@ -17,11 +17,14 @@ export default function Home() {
 
   const navigate=useNavigate();
 
-  const handleUploadComplete =async(base64Image: string)=>{
-    const newId=Date.now().toString();
-
+  const handleUploadComplete = async (base64Image: string) => {
+    const newId = Date.now().toString();
+    
+    // Persist the base64 image data to sessionStorage before navigation
+    sessionStorage.setItem(`image_${newId}`, base64Image);
+    
     navigate(`/visualizer/${newId}`);
-
+    
     return true;
   }
 

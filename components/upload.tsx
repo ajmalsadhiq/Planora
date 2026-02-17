@@ -11,6 +11,9 @@ import {
   REDIRECT_DELAY_MS,
 } from "lib/constants";
 
+const MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024; // 50 MB
+const ALLOWED_MIME_TYPES = ["image/jpeg", "image/jpg", "image/png"];
+
 type UploadProps = {
   onComplete?: (base64Data: string) => void;
 };
@@ -19,6 +22,7 @@ const Upload: React.FC<UploadProps> = ({ onComplete }) => {
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { isSignedIn } = useOutletContext<AuthContext>();
@@ -65,7 +69,23 @@ const Upload: React.FC<UploadProps> = ({ onComplete }) => {
 
   const handleFiles = (files: FileList | null) => {
     if (!isSignedIn || !files || files.length === 0) return;
+    
     const selected = files[0];
+    
+    // Validate file size
+    if (selected.size > MAX_FILE_SIZE_BYTES) {
+      setError(`File size exceeds the maximum limit of 50 MB. Your file is ${(selected.size / (1024 * 1024)).toFixed(2)} MB.`);
+      return;
+    }
+    
+    // Validate MIME type
+    if (!ALLOWED_MIME_TYPES.includes(selected.type)) {
+      setError(`File type not supported. Please upload a JPG or PNG image.`);
+      return;
+    }
+    
+    // Clear any previous errors and process valid file
+    setError(null);
     setFile(selected);
     processFile(selected);
   };
@@ -139,6 +159,11 @@ const Upload: React.FC<UploadProps> = ({ onComplete }) => {
                 : "Sign in or sign up with puter to upload"}
             </p>
             <p className="help">Maximum file size 50 MB.</p>
+            {error && (
+              <p className="error" style={{ color: "red", marginTop: "8px", fontSize: "0.875rem" }}>
+                {error}
+              </p>
+            )}
           </div>
         </div>
       ) : (
