@@ -18,20 +18,19 @@ export const getOrCreateHostingConfig= async():Promise<HostingConfig | null> =>{
         const existing = (await puter.kv.get(HOSTING_CONFIG_KEY)) as HostingConfig | null;
 
 
-        if(existing ?.subdomain) return{subdomain:existing.subdomain};
+        if(existing?.subdomain) return{subdomain:existing.subdomain};
 
         const subdomain = createHostingSlug();
 
         try{
             const created = await puter.hosting.create(subdomain,'.');
+            const config = {subdomain: created.subdomain};
+            await puter.kv.set(HOSTING_CONFIG_KEY, config);
 
-            const record =  {subdomain:created.subdomain};
-
-            await puter.kv.set(HOSTING_CONFIG_KEY, record);
-            return record;
+            return config;
 
         }catch(e){
-            console.warn(`could not find subdomain: ${e}`);
+            console.warn(`Could not create subdomain: ${e}`);
             return null;
         }
 }
