@@ -40,9 +40,12 @@ export default function Home() {
     
 
   const handleUploadComplete = async (base64Image: string) => {
-    try{
-        if(isCreatingProjectRef.current) return false;
+    
+        if (isCreatingProjectRef.current) return false;
         isCreatingProjectRef.current = true;
+    
+    try{
+        
         const newId = Date.now().toString();
         const name = `Residence ${newId}`;
 
@@ -75,7 +78,7 @@ export default function Home() {
         
         return true;
 
-    }finally{
+    }finally {
       isCreatingProjectRef.current = false;
     }
     
