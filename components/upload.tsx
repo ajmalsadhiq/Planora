@@ -36,14 +36,16 @@ const Upload: React.FC<UploadProps> = ({ onComplete }) => {
     if (!isSignedIn) return;
 
     const reader = new FileReader();
+    
 
     reader.onload = () => {
       if (!reader.result) return;
 
       const result = reader.result.toString();
-      const base64Data = result.includes(",")
-        ? result.split(",")[1]!
-        : result;
+      const previewUrl=URL.createObjectURL(selectedFile);
+//      const base64Data = result.includes(",")
+//        ? result.split(",")[1]!
+//        : result;
 
       setProgress(0);
       let current = 0;
@@ -57,7 +59,7 @@ const Upload: React.FC<UploadProps> = ({ onComplete }) => {
 
           if (onComplete) {
             window.setTimeout(() => {
-              onComplete(base64Data);
+              onComplete(previewUrl);
             }, REDIRECT_DELAY_MS);
           }
         }
