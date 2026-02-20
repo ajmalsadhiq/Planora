@@ -19,7 +19,8 @@ export const fetchAsDataUrl = async (url: string): Promise<string> => {
   };
 
   export const generate3DView = async({sourceImage}:Generate3DViewParams) => {
-    const dataUrl = sourceImage.startsWith('data:')
+    const isDataUrl = sourceImage.startsWith('data:');
+    const dataUrl = isDataUrl && sourceImage.includes(';base64,')
         ? sourceImage
         : await fetchAsDataUrl(sourceImage);
 
