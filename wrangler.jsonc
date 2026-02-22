@@ -1,7 +1,8 @@
 {
-    "name": "planora",
-    "compatibility_date": "2026-02-22",
-    "assets": {
-      "directory": "./build/client"
-    }
-  }
+  "name": "planora",
+  "compatibility_date": "2026-02-22",
+  "assets": {
+    "directory": "./build/client"
+  },
+  "main": "./build/server/index.js"
+}
