@@ -22,7 +22,7 @@ export const GRID_COLOR = "#3B82F6";
 export const UNAUTHORIZED_STATUSES = [401, 403];
 
 // Image Dimensions
-export const IMAGE_RENDER_DIMENSION = 1024;
+export const IMAGE_RENDER_DIMENSION = 512;
 
 export const ROOMIFY_RENDER_PROMPT = `
 TASK: Convert the input 2D floor plan into a **photorealistic angled 3D architectural render** showing full spatial depth, walls, and realistic interiors.
