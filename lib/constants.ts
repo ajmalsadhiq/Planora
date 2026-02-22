@@ -25,32 +25,36 @@ export const UNAUTHORIZED_STATUSES = [401, 403];
 export const IMAGE_RENDER_DIMENSION = 1024;
 
 export const ROOMIFY_RENDER_PROMPT = `
-TASK: Convert the input 2D floor plan into a **photorealistic, top‑down 3D architectural render**.
+TASK: Convert the input 2D floor plan into a **photorealistic angled 3D architectural render** showing full spatial depth, walls, and realistic interiors.
 
 STRICT REQUIREMENTS (do not violate):
-1) **REMOVE ALL TEXT**: Do not render any letters, numbers, labels, dimensions, or annotations. Floors must be continuous where text used to be.
-2) **GEOMETRY MUST MATCH**: Walls, rooms, doors, and windows must follow the exact lines and positions in the plan. Do not shift or resize.
-3) **TOP‑DOWN ONLY**: Orthographic top‑down view. No perspective tilt.
-4) **CLEAN, REALISTIC OUTPUT**: Crisp edges, balanced lighting, and realistic materials. No sketch/hand‑drawn look.
-5) **NO EXTRA CONTENT**: Do not add rooms, furniture, or objects that are not clearly indicated by the plan.
+1) **REMOVE ALL TEXT**: Do not render any letters, numbers, labels, or dimensions. Floors must be clean.
+2) **GEOMETRY MUST MATCH**: Walls, rooms, doors, and windows must follow the plan layout exactly. Do not move or resize structural elements.
+3) **ANGLED PERSPECTIVE VIEW**: Render from a slightly elevated 3/4 angle (not top-down), showing depth and spatial relationships.
+4) **REALISTIC INTERIOR VISUALIZATION**: Include walls, ceilings (partially visible), realistic lighting, and materials.
+5) **PROFESSIONAL QUALITY**: Clean, sharp, photorealistic architectural visualization. No sketch style.
 
-STRUCTURE & DETAILS:
-- **Walls**: Extrude precisely from the plan lines. Consistent wall height and thickness.
-- **Doors**: Convert door swing arcs into open doors, aligned to the plan.
-- **Windows**: Convert thin perimeter lines into realistic glass windows.
+STRUCTURE:
+- Walls extruded to realistic height with correct thickness.
+- Visible room depth and spatial volume.
+- Doors placed correctly and shown realistically.
+- Windows with glass and light interaction.
 
-FURNITURE & ROOM MAPPING (only where icons/fixtures are clearly shown):
-- Bed icon → realistic bed with duvet and pillows.
-- Sofa icon → modern sectional or sofa.
-- Dining table icon → table with chairs.
-- Kitchen icon → counters with sink and stove.
-- Bathroom icon → toilet, sink, and tub/shower.
-- Office/study icon → desk, chair, and minimal shelving.
-- Porch/patio/balcony icon → outdoor seating or simple furniture (keep minimal).
-- Utility/laundry icon → washer/dryer and minimal cabinetry.
+FURNITURE & INTERIOR (infer logically based on room type):
+- Bedrooms → bed, side tables, lamps.
+- Living areas → sofa, coffee table, TV unit.
+- Dining → table with chairs.
+- Kitchen → cabinets, counters, appliances.
+- Bathroom → toilet, sink, shower/tub.
+- Office → desk and chair.
+- Circulation areas → minimal decor.
 
 STYLE & LIGHTING:
-- Lighting: bright, neutral daylight. High clarity and balanced contrast.
-- Materials: realistic wood/tile floors, clean walls, subtle shadows.
-- Finish: professional architectural visualization; no text, no watermarks, no logos.
+- Soft natural daylight entering through windows.
+- Warm interior lighting accents.
+- Realistic materials: wood floors, tiles, painted walls.
+- Subtle shadows and global illumination.
+
+OUTPUT:
+High-quality interior visualization that feels like a real apartment walkthrough snapshot, maintaining the exact layout of the floor plan.
 `.trim();

@@ -596,4 +596,10 @@
             @apply text-sm text-zinc-500;
         }
     }
+    html, body, #root {
+        background: #111113;
+      }
+    html {
+        scroll-behavior: smooth;
+      }
 }
