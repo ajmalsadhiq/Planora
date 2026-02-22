@@ -99,8 +99,17 @@ const VisualizerId = () => {
 
   const handleDelete = async () => {
     if (!id || !window.confirm("Delete project?")) return;
-    const ok = await deleteProject(id);
-    if (ok) navigate("/");
+    try {
+      const ok = await deleteProject(id);
+      if (ok) {
+        navigate("/");
+      } else {
+        alert("Failed to delete project. Please try again.");
+      }
+    } catch (err) {
+      console.error("Delete failed:", err);
+      alert("An error occurred while deleting.");
+    }
   };
 
   const [isDark, setIsDark] = useState(() => {
