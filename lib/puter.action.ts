@@ -146,4 +146,28 @@ export const getProjectById = async ({ id }: { id: string }) => {
         console.error("Failed to fetch project:", error);
         return null;
     }
-};
+}
+
+export const deleteProject = async (id: string) => {
+    if (!PUTER_WORKER_URL) {
+      console.warn("Missing worker URL");
+      return false;
+    }
+  
+    try {
+      const response = await puter.workers.exec(
+        `${WORKER_BASE}/api/projects/delete?id=${encodeURIComponent(id)}`,
+        { method: "DELETE" }
+      );
+  
+      if (!response.ok) {
+        console.error("Delete failed:", await response.text());
+        return false;
+      }
+  
+      return true;
+    } catch (e) {
+      console.error("Delete error:", e);
+      return false;
+    }
+  };

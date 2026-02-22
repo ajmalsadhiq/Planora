@@ -155,12 +155,13 @@ const Upload: React.FC<UploadProps> = ({ onComplete }) => {
             <div className="drop-icon">
               <UploadIcon size={20} />
             </div>
-            <p>
+            <p className="upload-instruction">
+            
               {isSignedIn
                 ? "Click to upload or drag and drop"
                 : "Sign in or sign up with puter to upload"}
             </p>
-            <p className="help">Maximum file size 50 MB.</p>
+            <p className="help">Maximum file size 10 MB.</p>
             {error && (
               <p className="error" style={{ color: "red", marginTop: "8px", fontSize: "0.875rem" }}>
                 {error}

@@ -6,7 +6,7 @@ export const isHostedUrl = (value: unknown): value is string =>
     typeof value === "string" && value.includes(HOSTING_DOMAIN_SUFFIX);
 
 export const createHostingSlug = () =>
-    `roomify-${Date.now().toString(36)}-${Math.random()
+    `planora-${Date.now().toString(36)}-${Math.random()
         .toString(36)
         .slice(2, 8)}`;
 
